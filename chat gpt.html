@@ -1,0 +1,158 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To Do App using JS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f9;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #inputContainer {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4caf50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #tasks {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .task {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task h3 {
+      margin: 0;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .done-btn {
+      background-color: #2196f3;
+    }
+
+    .done-btn:hover {
+      background-color: #1976d2;
+    }
+
+    .del-btn {
+      background-color: #f44336;
+    }
+
+    .del-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    @media (max-width: 600px) {
+      #inputContainer {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>To Do App</h1>
+  <div id="inputContainer">
+    <input type="text" id="textInput" placeholder="Enter Your Task" />
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <div id="tasks"></div>
+
+  <script>
+    function addTask() {
+      const textInput = document.getElementById("textInput").value.trim();
+
+      if (textInput === "") {
+        alert("Please Enter a Task");
+      } else {
+        const taskDiv = document.createElement("div");
+        taskDiv.className = "task";
+
+        const taskText = document.createElement("h3");
+        taskText.textContent = textInput;
+
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "buttons";
+
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "Done";
+        doneBtn.className = "done-btn";
+        doneBtn.onclick = function () {
+          taskText.style.textDecoration =
+            taskText.style.textDecoration === "line-through" ? "none" : "line-through";
+        };
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.className = "del-btn";
+        delBtn.onclick = function () {
+          taskDiv.remove();
+        };
+
+        btnContainer.appendChild(doneBtn);
+        btnContainer.appendChild(delBtn);
+
+        taskDiv.appendChild(taskText);
+        taskDiv.appendChild(btnContainer);
+
+        document.getElementById("tasks").appendChild(taskDiv);
+        document.getElementById("textInput").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
